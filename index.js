@@ -5,44 +5,54 @@ function getComputerChoice() {
     return randomChoice;
 }
 
-//Player and computer selection and score data
-let playerSelection = 'Rock';
-let computerSelection = getComputerChoice();
-let playerScore;
-let computerScore;
-
-playerSelection = playerSelection.toLowerCase();
+//Variable for score and result of winner and loser
+let playerScore = 0;
+let computerScore = 0;
+let message = '';
 
 //Main gameplay and scorring
-function playRound (playerSelection, computerSelection) {
+function playRound() {
+    let computerSelection = getComputerChoice();
+    let playerSelection = prompt("Your choice (Rock, Paper, or Scissors):", '');
+    playerSelection = playerSelection.toLowerCase();
+
     if(playerSelection == computerSelection) {
-        return "Draw!";
-    } else if(playerSelection == 'rock') {
-        if(computerSelection == 'scissors') {
-            return "You win!"
-            playerScore++
-        } else {
-            return "You lose!"
-            computerScore++
-        }
-    } else if(playerSelection == 'paper') {
-        if(computerSelection == 'rock') {
-            return "You win!"
-            playerScore++
-        } else {
-            return "You lose!"
-            computerScore++
-        }
-    } else if(playerSelection == 'scissors') {
-        if(computerSelection == 'paper') {
-            return "You win!"
-            playerScore++
-        } else {
-            return "You lose!"
-            computerScore++
-        }
+        playerScore++;
+        computerScore++;
+        message = 'Draw!';
     }
+
+    if((playerSelection == 'rock' && computerSelection == 'scissors')
+    || (playerSelection == 'paper' && computerSelection == 'rock')
+    || (playerSelection == 'scissors' && computerSelection == 'paper')) {
+        playerScore++;
+        message = 'You win!';
+    }
+
+    if((computerSelection == 'rock' && playerSelection == 'scissors')
+    || (computerSelection == 'paper' && playerSelection == 'rock')
+    || (computerSelection == 'scissors' && playerSelection == 'paper')) {
+        computerScore++;
+        message = 'You lose!';
+    }
+
+    console.log(message);
 }
 
-console.log(playRound(playerSelection, computerSelection));
+//Run a game for 5 rounds and show the final result
+function game() {
+    for (let i = 0; i < 5; i++) {
+        playRound();
+    }
 
+    if(playerScore > computerScore) {
+        console.log("Congratulation! You win the game!");
+    } else if(playerScore < computerScore) {
+        console.log("Sorry, you lose! Try again!");
+    }
+
+    console.log(`Player score: ${playerScore}`);
+    console.log(`Computer score: ${computerScore}`);
+}
+
+game();
