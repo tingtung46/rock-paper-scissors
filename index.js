@@ -10,11 +10,13 @@ let playerScore = 0;
 let computerScore = 0;
 let message = '';
 
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
 //Main gameplay and scorring
-function playRound() {
+function playRound(playerSelection) {
     let computerSelection = getComputerChoice();
-    let playerSelection = prompt("Your choice (Rock, Paper, or Scissors):", '');
-    playerSelection = playerSelection.toLowerCase();
 
     if(playerSelection == computerSelection) {
         playerScore++;
@@ -37,22 +39,24 @@ function playRound() {
     }
 
     console.log(message);
-}
-
-//Run a game for 5 rounds and show the final result
-function game() {
-    for (let i = 0; i < 5; i++) {
-        playRound();
-    }
-
-    if(playerScore > computerScore) {
-        console.log("Congratulation! You win the game!");
-    } else if(playerScore < computerScore) {
-        console.log("Sorry, you lose! Try again!");
-    }
 
     console.log(`Player score: ${playerScore}`);
     console.log(`Computer score: ${computerScore}`);
+
+    if(playerScore === 5) {
+        console.log("Congratulation! You win the game!");
+    } else if(computerScore === 5) {
+        console.log("Sorry, you lose! Try again!");
+    };
 }
 
-game();
+//Run a game for 5 rounds and show the final result
+rock.addEventListener('click', () => {
+    playRound(rock.value);
+});
+paper.addEventListener('click', () => {
+    playRound(paper.value);
+});
+scissors.addEventListener('click', () => {
+    playRound(scissors.value);
+});
