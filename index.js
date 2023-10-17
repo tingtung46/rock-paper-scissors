@@ -5,7 +5,7 @@ function getComputerChoice() {
     return randomChoice;
 }
 
-//Variable for score and result of winner and loser
+//Variable for score, result of one round game and DOM
 let playerScore = 0;
 let computerScore = 0;
 let message = '';
@@ -13,6 +13,10 @@ let message = '';
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
+const msg = document.querySelector('.message');
+const playScore = document.querySelector('#player-score');
+const compScore = document.querySelector('#comp-score');
+const winner = document.querySelector('.winner');
 
 //Main gameplay and scorring
 function playRound(playerSelection) {
@@ -38,19 +42,26 @@ function playRound(playerSelection) {
         message = 'You lose!';
     }
 
-    console.log(message);
+    msg.innerText = message;
 
-    console.log(`Player score: ${playerScore}`);
-    console.log(`Computer score: ${computerScore}`);
+    playScore.innerText = playerScore;
+    compScore.innerText = computerScore;
 
+    //Final result
     if(playerScore === 5) {
-        console.log("Congratulation! You win the game!");
+        winner.innerText = "Congratulation! You win the game!";
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
     } else if(computerScore === 5) {
-        console.log("Sorry, you lose! Try again!");
+        winner.innerText = "Sorry, you lose! Try again!";
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
     };
 }
 
-//Run a game for 5 rounds and show the final result
+//Run a game
 rock.addEventListener('click', () => {
     playRound(rock.value);
 });
